@@ -1,4 +1,4 @@
-fastapi
-uvicorn
-requests
-python-dotenv
+fastapi==0.111.0
+uvicorn==0.26.0
+pyotp==2.9.0
+cryptography==46.0.3

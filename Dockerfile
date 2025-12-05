@@ -1,14 +1,11 @@
 # ============================
-# Stage 1: Builder
+# Stage 1: Builder (optional caching)
 # ============================
 FROM python:3.11-slim AS builder
 
 WORKDIR /app
 
-# Copy dependency file
 COPY requirements.txt .
-
-# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ============================
@@ -17,19 +14,18 @@ RUN pip install --no-cache-dir -r requirements.txt
 FROM python:3.11-slim
 
 ENV TZ=UTC
-
 WORKDIR /app
 
-# Install cron + timezone tools
+# Install system dependencies
 RUN apt-get update && \
     apt-get install -y cron tzdata && \
     ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy dependencies from builder
-COPY --from=builder /usr/local/lib/python3.11 /usr/local/lib/python3.11
-COPY --from=builder /usr/local/bin /usr/local/bin
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .
