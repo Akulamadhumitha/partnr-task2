@@ -31,8 +31,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Setup cron job
-COPY cron/mycron /etc/cron.d/mycron
-RUN chmod 0644 /etc/cron.d/mycron && crontab /etc/cron.d/mycron
+COPY cron/2fa-cron /etc/cron.d/2fa-cron
+RUN chmod 0644 /etc/cron.d/2fa-cron && crontab /etc/cron.d/2fa-cron
 
 # Create volume mount points
 RUN mkdir -p /data /cron && chmod 755 /data /cron
