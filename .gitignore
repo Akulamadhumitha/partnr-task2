@@ -1,0 +1,29 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env/
+
+# Seed & sensitive data mounted inside container
+data/
+cron/
+
+# Seed file inside container mount
+/data/seed.txt
+
+# Cron output file
+/cron/last_code.txt
+
+# Private keys (VERY IMPORTANT)
+student_private.pem
+student_public.pem
+instructor_public.pem
+
+# Docker files
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
